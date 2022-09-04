@@ -188,3 +188,60 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+/* MIOOO */
+
+#autosCatDes {
+  font-size: 120%;
+  text-align: center;
+  font-weight: lighter;
+  margin-bottom: 4%;
+}
+
+#h1Autos {
+  text-align: center;
+  margin-top: 2%;
+  font-size: 200%;
+}
+
+#containerLogin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5% 30% 10% 30%;
+  padding: 5% 5% 5% 5%;
+  border-radius: 5%;
+  background-color: rgb(238, 232, 232);
+}
+
+.form-label {
+  display: flex;
+  justify-content: center;
+
+}
+
+.form-control {
+  display: flex;
+  margin-right: -10%;
+  cursor: pointer;
+  border-color: black;
+}
+
+.form-control:focus {
+  width: 110%;
+  border-color: #0087F7;
+}
+
+#ingBtn {
+  margin: 5% 2% 0% 2%;
+}
+
+.alert {
+  position: fixed;
+  top: 80px;
+  width: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+/* MIOOO */
