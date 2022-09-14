@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function validate(e) {
         let password = document.getElementById("password").value;
 
         if ((email.length) > 0 && password.length > 0) {
+            localStorage.setItem("correo", email); //-------------------------------------------
             showAlertSuccess()
         } else {
             registro.preventDefault()
