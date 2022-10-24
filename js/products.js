@@ -9,7 +9,7 @@ function showCategoriesList(array) {
     for (let i = 0; i < array.length; i++) {
         let category = array[i];
         htmlContentToAppend += `
-        <div class="list-group-item list-group-item-action">
+        <div class="list-group-item list-group-item-action" id="${category.id}" role="button">
             <div class="row">
                 <div class="col-3">
                     <img src="` + category.image + `" alt="product image" class="img-thumbnail">
@@ -22,7 +22,6 @@ function showCategoriesList(array) {
                         </div>
                         <small class="text-muted">` + category.soldCount + ` artículos</small> 
                     </div>
-
                 </div>
             </div>
         </div>
@@ -31,10 +30,22 @@ function showCategoriesList(array) {
     }
 }
 
+//IDS
+function IDS(array) {
+    for (let i = 0; i < array.length; i++) {
+        let prod = array[i];
+        document.getElementById(`${prod.id}`).addEventListener("click", () => {
+            localStorage.setItem("Prod", prod.id)
+            window.location.href = "product-info.html"
+        })
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function (e) {
     fetch(CatURL).then(response => response.json()).then(data => {
         categoriesArray = data.products;
         showCategoriesList(categoriesArray);
+        IDS(categoriesArray);
     });
 });
 

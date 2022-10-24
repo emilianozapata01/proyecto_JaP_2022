@@ -244,4 +244,69 @@ a.custom-card:hover {
   transform: translate(-50%, 0);
 }
 
-/* MIOOO */
+/* MIOOO PRODUCTOS */
+
+.prodImagenes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 2%;
+
+}
+
+.prodImagenesSingle {
+  border: 0.1px solid gray;
+  box-shadow: 2px 2px darkslategray;
+  border-radius: 5px;
+  width: 30%;
+  margin-top: 2%;
+}
+
+#comments {
+  display: flex;
+  flex-direction: column;
+}
+
+.commentsA {
+  padding: 10px;
+  padding-bottom: 1px;
+  border: 1px solid gainsboro;
+  border-radius: 5px;
+}
+
+/* cart */
+
+.direccion {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.direccionItem {
+  width: 40%;
+}
+
+.inputCart {
+  width: 100%;
+  padding: 1%;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+/* boton de compra */
+.ttbtn {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 55%;
+  justify-content: center;
+  align-items: center;
+}

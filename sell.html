@@ -30,7 +30,16 @@
             <a class="nav-link active" href="sell.html">Vender</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="my-profile.html" id="localSCorreo"></a>
+            <div class="dropdown">
+              <a class="dropdown-toggle nav-link" href="#" role="button" id="localSCorreo" data-bs-toggle="dropdown"
+                aria-expanded="false"></a>
+
+              <ul class="dropdown-menu" aria-labelledby="localSCorreo">
+                <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+                <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+                <li><a class="dropdown-item" href="index.html" id="closeS">Cerrar sesión</a></li>
+              </ul>
+            </div>
           </li>
         </ul>
       </div>

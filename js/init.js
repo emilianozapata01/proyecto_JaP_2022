@@ -47,4 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (correo.length > 0) {
     document.getElementById("localSCorreo").innerHTML = correo
   }
+  document.getElementById("closeS").addEventListener("click", () => {
+    localStorage.removeItem("correo");
+  })
 })
