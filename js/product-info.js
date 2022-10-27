@@ -45,7 +45,16 @@ function showProd(array) {
     document.getElementById("prodInd").innerHTML = htmlAppend;
     let comprar = document.getElementById("btnComprar");
     comprar.addEventListener("click", () => {
-        localStorage.setItem("ProdCompra", JSON.stringify(array));
+        // localStorage.setItem("ProdCompra", JSON.stringify(array));
+        let comprobar = JSON.parse(localStorage.getItem("prods"));
+        if (comprobar == null || comprobar == undefined) {
+            let prods = [];
+            prods.push(array)
+            localStorage.setItem("prods", JSON.stringify(prods))
+        } else {
+            comprobar.push(array)
+            localStorage.setItem("prods", JSON.stringify(comprobar))
+        }
         window.location.href = "cart.html"
     })
 }
@@ -154,7 +163,7 @@ function agregarEventListenerRelProds(array) {
     for (let i = 0; i < array.length; i++) {
         let prod = array[i];
         document.getElementById(prod.id).addEventListener("click", () => {
-            Prodi = prod.id;
+            let Prodi = prod.id;
             localStorage.setItem("Prod", prod.id)
             window.scroll(0, 0)
             fetch(`https://japceibal.github.io/emercado-api/products/${Prodi}.json`).then(r => r.json()).then(d => {

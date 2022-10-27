@@ -16,19 +16,9 @@ function displayCarrito(arrayInicial) {
             <div class="col-2"><img src="${prod.image}" class="rounded" style="width: 50%"></div>
             <div class="col-2">${prod.name}</div>
             <div class="col-2">${prod.currency} ${prod.unitCost}</div>
-            <div class="col-2"><select class="form-select" aria-label="" style="width: 50%" id="option${prod.id}">
-                                    <option selected value="1" id="op1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select></div>
-            <div class="col-2" id="subtotalProc${prod.id}"><b>${prod.currency} ${unit * cantidad}</b></div>
+            <div class="col-2">
+            <input type="number" value="1" style="width: 50%" id="option${prod.id}" class="border border-secondary" min="1"></div>
+            <div class="col-2" id="subtotalProc${prod.id}"><b>${prod.currency}<span id="valorInicial${prod.id}"> ${unit * cantidad}</span></b></div>
             <div class="col-2"><button class="btn btn-danger btn-sm rounded-0 btn${prod.id}" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></div> 
         </div>
     </div>
@@ -59,66 +49,88 @@ function displayCarrito(arrayInicial) {
             </div>
         </form>
     </div>
+    <br>
+    <hr>
+    <br>
+    <h3>Costos</h3>
+    <div>
+        <div class="row border p-1">
+            <div class="col-6">
+            <span>Subtotal</span>
+            <p class="text-muted small">Costo unitario por cantidad</p>
+            </div>
+            <div class="col-6">
+            <p>USD<span id="totalSubtotal"></span</p>
+            </div>
+        </div>
+        <div class="row border p-1">
+            <div class="col-6">
+            <span>Costo de envío</span>
+            <p class="text-muted small">Según el tipo de envío</p>
+            </div>
+            <div class="col-6">
+            <p>USD<span id="costoEnvio"></span></p>
+            </div>
+        </div>
+        <div class="row border p-1">
+            <div class="col-6">
+            <span>Total{$}</span>
+            </div>
+            <div class="col-6">
+            <p></p>
+            </div>
+        </div>
+    </div>
     `;
     document.getElementById("carrito").innerHTML = htmlToAppend;
     addELOP(prod, unit);
     let divObjeto = document.getElementsByClassName(`P${prod.id}`);
     let botonEliminar = document.getElementsByClassName(`btn${prod.id}`);
     botonEliminar[0].addEventListener("click", () => {
+        let precioActual = JSON.parse(document.getElementById(`valorInicial${prod.id}`).textContent);
+        let rellenar = document.getElementById("totalSubtotal");
+        let rellenarValor = JSON.parse(document.getElementById("totalSubtotal").textContent);
+        rellenar.innerHTML = rellenarValor - precioActual
         divObjeto[0].parentNode.removeChild(divObjeto[0])
     })
+    let prods = JSON.parse(localStorage.getItem("prods"))
+    principioDeSumaSubtotales(prods, unit)
 }
+
 
 function addELOP(prod, unit) {
     const selectOptions = document.getElementById(`option${prod.id}`)
     selectOptions.addEventListener("change", () => {
+        let precioActual = JSON.parse(document.getElementById(`valorInicial${prod.id}`).textContent);
         let cantidad = selectOptions.value
-        let result = document.getElementById(`subtotalProc${prod.id}`);
-        result.innerHTML = `<b>${prod.currency} ${unit * cantidad}</b>`
+        let result = document.getElementById(`valorInicial${prod.id}`);
+        result.innerHTML = `${unit * cantidad}`
+        sumaSubtotales(precioActual, unit * cantidad, unit)
     })
 }
 
-function nuevoProd(arrayProd) {
-    if (localStorage.getItem("ProdCompra") == null) {
+function sumaSubtotales(precioActual, loQueSale, unidad) {
+    let rellenar = document.getElementById("totalSubtotal");
+    let rellenarValor = JSON.parse(document.getElementById("totalSubtotal").textContent);
+    if (loQueSale > precioActual) {
+        rellenar.innerHTML = rellenarValor + unidad
     } else {
-        let unit = arrayProd.cost;
-        let cantidad = 1;
-        let htmlToCreate = `
-            <div class="col-2"><img src="${arrayProd.images[0]}" class="rounded" style="width: 50%"></div>
-            <div class="col-2">${arrayProd.name}</div>
-            <div class="col-2">${arrayProd.currency} ${arrayProd.cost}</div>
-            <div class="col-2"><select class="form-select" aria-label="" style="width: 50%" id="option${arrayProd.id}">
-                                    <option selected value="1" id="op1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select></div>
-            <div class="col-2" id="subtotalProc${arrayProd.id}"><b>${arrayProd.currency} ${unit * cantidad}</b></div>
-            <div class="col-2"><button class="btn btn-danger btn-sm rounded-0 btn${arrayProd.id}" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></div> 
-    `
-        let divCarrito = document.getElementById("prodsCarrito");
-        let divCreado = document.createElement("div");
-        divCarrito.appendChild(divCreado)
-        divCreado.classList.add("row", "border-bottom", "m-1", "p-1", `P${arrayProd.id}`)
-        divCreado.innerHTML = htmlToCreate
-        addELOP(arrayProd, unit)
-        let prods = JSON.parse(localStorage.getItem("prods"))
-        prods.push(arrayProd)
-        localStorage.setItem("prods", JSON.stringify(prods))
-        localStorage.removeItem("ProdCompra")
-        let botonEliminar = document.getElementsByClassName(`btn${arrayProd.id}`);
-        botonEliminar[0].addEventListener("click", () => {
-            let divselect = document.getElementsByClassName(`P${arrayProd.id}`);
-            divselect[0].parentNode.removeChild(divselect[0])
-            let prods1 = JSON.parse(localStorage.getItem("prods"));
-            arrayRemove(prods1, arrayProd)
-        })
+        rellenar.innerHTML = rellenarValor - unidad
+    }
+}
+
+function principioDeSumaSubtotales(prods, unit) {
+    let rellenar = document.getElementById("totalSubtotal");
+    let rellenarEnvio = document.getElementById("costoEnvio");
+    if (prods.length == 0) {
+        rellenar.innerHTML = unit
+    } else {
+        let suma = 0;
+        for (let prod of prods) {
+            suma += prod.cost
+        }
+        suma += unit
+        rellenar.innerHTML = suma
     }
 }
 
@@ -128,7 +140,6 @@ function comprobarOCrearProds() {
         let prods = [];
         localStorage.setItem("prods", JSON.stringify(prods))
     }
-
 }
 
 function ProdsViejosCarrito(prods) {
@@ -139,19 +150,9 @@ function ProdsViejosCarrito(prods) {
             <div class="col-2"><img src="${prod.images[0]}" class="rounded" style="width: 50%"></div>
             <div class="col-2">${prod.name}</div>
             <div class="col-2">${prod.currency} ${prod.cost}</div>
-            <div class="col-2"><select class="form-select" aria-label="" style="width: 50%" id="option${prod.id}">
-                                    <option selected value="1" id="op1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select></div>
-            <div class="col-2" id="subtotalProc${prod.id}"><b>${prod.currency} ${unit * cantidad}</b></div>
+            <div class="col-2">
+            <input type="number" value="1" style="width: 50%" id="option${prod.id}" class="border border-secondary" min="1"></div>
+            <div class="col-2" id="subtotalProc${prod.id}"><b>${prod.currency}<span id="valorInicial${prod.id}">${unit * cantidad}</span></b></div>
             <div class="col-2"><button class="btn btn-danger btn-sm rounded-0 btn${prod.id}" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></div> 
     `
         let divCarrito = document.getElementById("prodsCarrito");
@@ -160,8 +161,12 @@ function ProdsViejosCarrito(prods) {
         divCreado.classList.add("row", "border-bottom", "m-1", "p-1", `P${prod.id}`)
         divCreado.innerHTML = htmlToCreate
         addELOP(prod, unit)
-        let botonEliminar = document.getElementsByClassName(`P${prod.id}`)
+        let botonEliminar = document.getElementsByClassName(`btn${prod.id}`)
         botonEliminar[0].addEventListener("click", () => {
+            let precioActual = JSON.parse(document.getElementById(`valorInicial${prod.id}`).textContent);
+            let rellenar = document.getElementById("totalSubtotal");
+            let rellenarValor = JSON.parse(document.getElementById("totalSubtotal").textContent);
+            rellenar.innerHTML = rellenarValor - precioActual
             let divselect = document.getElementsByClassName(`P${prod.id}`);
             divselect[0].parentNode.removeChild(divselect[0]);
             let prods1 = JSON.parse(localStorage.getItem("prods"));
@@ -177,13 +182,22 @@ function arrayRemove(arr, value) {
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch("https://japceibal.github.io/emercado-api/user_cart/25801.json").then(r => r.json()).then(d => {
-        displayCarrito(d.articles)
         comprobarOCrearProds()
         let prods = JSON.parse(localStorage.getItem("prods"))
-        ProdsViejosCarrito(prods)
-        let arrayProd = JSON.parse(localStorage.getItem("ProdCompra"));
-        if (arrayProd !== null || arrayProd !== undefined) {
-            nuevoProd(arrayProd)
-        }
+        //para que no hay productos duplicados
+        const uniqueIds = [];
+        const unique = prods.filter(element => {
+            const isDuplicate = uniqueIds.includes(element.id);
+            if (!isDuplicate) {
+                uniqueIds.push(element.id);
+                return true;
+            }
+            return false;
+        });
+        localStorage.setItem("prods", JSON.stringify(unique))
+        displayCarrito(d.articles)
+        ProdsViejosCarrito(unique)
     })
 })
+
+//HACE UN ADDEVENTLISTENER PARA CADA INPUT RADIO DE ENVIO
