@@ -53,7 +53,169 @@
       <div class="text-start p-3">
         <h5>Artículos a comprar</h5>
       </div>
-      <div id="carrito"></div>
+      <div id="carrito">
+        <div class="row border-bottom border-dark m-1">
+          <div class="col-2"></div>
+          <div class="col-2"><b>Nombre</b></div>
+          <div class="col-2"><b>Costo</b></div>
+          <div class="col-2"><b>Cantidad</b></div>
+          <div class="col-2"><b>Subtotal</b></div>
+        </div>
+        <div id="prodsCarrito">
+        </div>
+        <hr>
+        <form action="" id="formPrin" name="formPrin" novalidate oninvalid="showAlertSuccess()">
+          <div>
+            <h3>Tipo de envío</h3>
+            <input type="radio" id="premium" value="premium" name="envio" required>
+            <label for="premium">Premium 2 a 5 días (%15)</label><br>
+            <input type="radio" id="express" value="express" name="envio" required>
+            <label for="express">Express 5 a 8 días (%7)</label><br>
+            <div>
+              <input type="radio" id="standard" value="standard" name="envio" required>
+              <label for="standard">Standard 12 a 15 días (%5)</label>
+              <div class="invalid-feedback">
+                Debe selecionar un envío.
+              </div>
+            </div>
+            <br><br>
+            <h3>Dirección de envío</h3><br>
+            <div class="direccion">
+              <div class="direccionItem">
+                <label for="calle">Calle</label><br>
+                <input type="text" id="calle" class="inputCart" required>
+                <div class="invalid-feedback">
+                  Ingrese una calle.
+                </div>
+              </div>
+              <div class="direccionItem">
+                <label for="numero">Número</label><br>
+                <input type="text" id="numero" class="inputCart" required>
+                <div class="invalid-feedback">
+                  Ingrese un número.
+                </div>
+              </div>
+              <div class="direccionItem">
+                <label for="esquina">Esquina</label><br>
+                <input type="text" id="esquina" class="inputCart" required>
+                <div class="invalid-feedback">
+                  Ingrese una esquina.
+                </div>
+              </div>
+            </div>
+            <!-- </form> -->
+          </div>
+          <br>
+          <hr>
+          <br>
+          <h3>Costos</h3>
+          <div>
+            <div class="d-flex flex-row align-items-center border p-3">
+              <div class="col-6">
+                <span>Subtotal</span>
+                <p class="text-muted small m-0">Costo unitario por cantidad</p>
+              </div>
+              <div class="ms-auto">
+                <p class="m-0">USD<span id="totalSubtotal"></span></p>
+              </div>
+            </div>
+            <div class="d-flex flex-row align-items-center border p-3">
+              <div class="col-6">
+                <span>Costo de envío</span>
+                <p class="text-muted small m-0">Según el tipo de envío</p>
+              </div>
+              <div class="ms-auto">
+                <p class="m-0">USD<span id="costoEnvio"></span></p>
+              </div>
+            </div>
+            <div class="d-flex flex-row align-items-center border p-3">
+              <div class="col-6">
+                <span>Total{$}</span>
+              </div>
+              <div class="ms-auto">
+                <p class="m-0"><b>USD<span id="costoTotal"></span></b></p>
+              </div>
+            </div>
+            <br>
+            <hr>
+            <br>
+            <h3>Forma de pago</h3>
+            <br>
+            <!-- BOTON SUBMIT -->
+            <div>
+              <span id="pagoSelect" class="p-2">No ha selecionado</span>
+              <a class="p-2 pe-auto" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                id="enviarForm">Seleccionar</a>
+              <div class="invalid-feedback">
+                Debe seleccionar un método de pago o completar los campos correspondientes.
+              </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><b>Forma de pago</b></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body m-2">
+                    <!-- <form action="" id="formUlti" name="formUlti"> -->
+                    <input type="radio" name="metodoPago" id="cc" required>
+                    <label for="cc">Tarjeta de crédito</label>
+                    <hr>
+                    <div class="d-flex flex-row flex-wrap gap-3">
+                      <div>
+                        <label for="ccn">Número de tarjeta</label><br>
+                        <input type="tel" name="ccn" id="ccn" class="inputCart" inputmode="numeric"
+                          pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19"
+                          placeholder="xxxx xxxx xxxx xxxx" required disabled>
+                        <div class="invalid-feedback">
+                          Ingrese un número válido.
+                        </div>
+                      </div>
+                      <div>
+                        <label for="cccsn">Código de seguridad</label><br>
+                        <input type="text" name="cccsn" id="cccsn" class="inputCart" inputmode="numeric" pattern="/d{3}"
+                          autocomplete="cc-csc" maxlength="3" placeholder="xxx" required disabled>
+                        <div class="invalid-feedback">
+                          Ingrese código de seguridad.
+                        </div>
+                      </div>
+                      <div>
+                        <label for="cced">Vencimiento (MM/AA)</label><br>
+                        <input type="month" name="cced" id="cced" class="inputCart" inputmode="numeric"
+                          autocomplete="cc-exp" required disabled>
+                        <div class="invalid-feedback">
+                          Ingrese vencimiento de la tarjeta.
+                        </div>
+                      </div>
+                    </div><br>
+                    <input type="radio" name="metodoPago" id="banco">
+                    <label for="banco">Transferencia bancaria</label>
+                    <hr>
+                    <div class="direccionItem">
+                      <label for="accn">Número de cuenta</label><br>
+                      <input type="text" name="accn" id="accn" class="inputCart w-40" inputmode="numeric" required
+                        disabled>
+                      <div class="invalid-feedback">
+                        Ingrese el número de la cuenta bancaria.
+                      </div>
+                    </div>
+                    <!-- </form> -->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <button type=" submit" class="btn btn-primary col-12 p-2" id="finalCompra">Finalizar compra</button>
+        </form>
+      </div>
+    </div>
     </div>
   </main>
   <footer class="text-muted">
@@ -66,6 +228,10 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+    <p>¡Has comprado con éxito!</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
@@ -80,3 +246,5 @@
 </body>
 
 </html>
+
+<!-- ERROR SALE EL CARTELITO VERDE CUANDO CIERRO EL MODAL -->

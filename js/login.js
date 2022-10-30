@@ -1,3 +1,5 @@
+const validEmail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
 function showAlertSuccess() {
     document.getElementById("alert-success").classList.add("show");
 };
@@ -12,8 +14,8 @@ document.addEventListener("DOMContentLoaded", function validate(e) {
         let email = document.getElementById("email").value;
         let password = document.getElementById("password").value;
 
-        if ((email.length) > 0 && password.length > 0) {
-            localStorage.setItem("correo", email); //-------------------------------------------
+        if ((validEmail.test(email)) > 0 && password.length > 0) {
+            localStorage.setItem("correo", email);
             showAlertSuccess()
         } else {
             registro.preventDefault()
