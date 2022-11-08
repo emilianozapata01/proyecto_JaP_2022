@@ -312,3 +312,19 @@ a.custom-card:hover {
 .error-compra {
   border-color: red !important;
 }
+
+/* perfil */
+
+.item-form {
+  width: 30%;
+  margin: 0px 20px 20px 20px;
+}
+
+.lol {
+  text-align: center;
+  margin-right: 52%;
+}
+
+.borde-rojo {
+  border-color: red;
+}

@@ -189,7 +189,5 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(`https://japceibal.github.io/emercado-api/products_comments/${Prod}.json`).then(re => re.json()).then(da => {
         showComments(da);
         addComm();
-
     })
-
 })

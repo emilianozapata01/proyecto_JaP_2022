@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function validate(e) {
         let email = document.getElementById("email").value;
         let password = document.getElementById("password").value;
 
-        if ((validEmail.test(email)) > 0 && password.length > 0) {
+        if (validEmail.test(email) && password.length > 0) {
             localStorage.setItem("correo", email);
             showAlertSuccess()
         } else {
