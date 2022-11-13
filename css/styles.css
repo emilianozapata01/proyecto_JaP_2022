@@ -320,11 +320,48 @@ a.custom-card:hover {
   margin: 0px 20px 20px 20px;
 }
 
-.lol {
-  text-align: center;
-  margin-right: 52%;
+.btnGuardarCambios {
+  text-align: left;
 }
 
 .borde-rojo {
   border-color: red;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.divChangeImage {
+  position: absolute;
+  align-self: center;
+  background-color: black;
+  opacity: 0.6;
+  width: 100px;
+  height: 100px;
+  z-index: 1;
+  color: wheat;
+  text-align: center;
+}
+
+.changeImage {
+  font-size: medium;
+  text-decoration: underline;
+  justify-content: center;
+  padding: 30px 5px 0 5px;
+
+}
+
+#estiloForm {
+  max-width: 1116px;
+  justify-content: center;
 }

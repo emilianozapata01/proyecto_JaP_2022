@@ -64,10 +64,19 @@
     <div class="container">
       <br>
       <h1 class="d-flex justify-content-center">Perfil</h1>
-      <br>
       <hr>
-      <form action="" name="form" class="needs-validation" novalidate>
-        <div class="d-flex flex-row justify-content-center flex-wrap form-profile">
+      <div class="d-flex flex-column">
+        <label for="avatar" class="custom-file-upload d-flex justify-content-center rounded" id="divHover">
+          <img src="img/img_perfil.png" alt="Submit" style="position: absolute;" width="100px" height="90px" id="pfp">
+          <div class="divChangeImage d-none" id="divChangeImage">
+            <p class="changeImage">Cambiar imágen</p>
+          </div>
+        </label>
+        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+      </div>
+      <br>
+      <form action="" name="form" novalidate class="justify-content-center">
+        <div class="d-flex flex-row flex-wrap form-profile m-0" id="estiloForm">
           <div class="d-flex flex-column item-form">
             <label for="firstname">Primer nombre*</label>
             <input type="text" name="firstname" id="firstname" class="form-control border border-1" required>
@@ -99,11 +108,8 @@
           </div>
           <div class="d-flex flex-column item-form">
             <label for="phone">Teléfono de contacto*</label>
-            <input type="tel" name="phone" id="phone" class="form-control border border-1"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" placeholder="123-456-789" required>
-            <div class="valid-feedback">
-              Looks good!
-            </div>
+            <input type="tel" name="phone" id="phone" class="form-control border border-1" placeholder="123456789"
+              required>
             <div class="invalid-feedback">
               Ingrese un número de teléfono válido.
             </div>
@@ -112,7 +118,7 @@
         <br>
         <br>
         <hr>
-        <div class="lol">
+        <div class="btnGuardarCambios">
           <button type="submit" class="btn btn-primary" id="enviar">Guardar cambios</button>
         </div>
       </form>
