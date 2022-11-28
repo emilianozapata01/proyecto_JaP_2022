@@ -84,6 +84,7 @@ function showProd(array) {
 }
 
 function estrellas(com) {
+    let estrella = "";
     if (com.score == 0 || com == 0) {
         estrella = `
         <span class="fa fa-star"></span>
@@ -133,14 +134,12 @@ function estrellas(com) {
 function showComments(objeto) {
     let htmlComm = "";
     for (let com of objeto) {
-        let estrella = "";
         htmlComm += `
                 <div class="commentsA">
                 <p> <b>`+ com.user + `</b> - ` + com.dateTime + ` - ` + estrellas(com) + `</p>
                 <p> `+ com.description + `</p>
                 </div>    `
     }
-
     document.getElementById("comments").innerHTML += htmlComm;
 }
 
