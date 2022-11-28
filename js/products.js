@@ -5,7 +5,6 @@ let categoriesArray = [];
 
 function showCategoriesList(array) {
     let htmlContentToAppend = "";
-
     for (let i = 0; i < array.length; i++) {
         let category = array[i];
         htmlContentToAppend += `
@@ -26,8 +25,8 @@ function showCategoriesList(array) {
             </div>
         </div>
         `
-        document.getElementById("catAutos").innerHTML = htmlContentToAppend;
     }
+    document.getElementById("CAT").innerHTML = htmlContentToAppend;
 }
 
 //IDS
@@ -41,13 +40,6 @@ function IDS(array) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
-    fetch(CatURL).then(response => response.json()).then(data => {
-        categoriesArray = data.products;
-        showCategoriesList(categoriesArray);
-        IDS(categoriesArray);
-    });
-});
 
 //FILTRO ------------------------------------------------------------------
 const precioAsc = document.getElementById("sortAsc");
@@ -74,8 +66,34 @@ botonFiltro.addEventListener("click", e => {
     })
 });
 
+//Buscar
+let input = document.getElementById("inputBuscar");
+input.addEventListener("input", () => {
+    fetch(CatURL).then(response => response.json()).then(data => {
+        categoriesArray = data.products;
+    });
+    let arrayFiltro = [];
+    let arrayCaca = [];
+    filtro = input.value.toUpperCase();
+    for (let prod of categoriesArray) {
+        if (prod.name.toUpperCase().indexOf(filtro) > -1 || prod.description.toUpperCase().indexOf(filtro) > -1) {
+            arrayFiltro.push(prod);
+        }
+    };
+    showCategoriesList(arrayFiltro);
+})
+
 const botonLimpiar = document.getElementById("clearRangeFilter");
 botonLimpiar.addEventListener("click", e => {
     document.getElementById("rangeFilterCountMax").value = "";
     document.getElementById("rangeFilterCountMin").value = "";
 })
+
+document.addEventListener("DOMContentLoaded", function (e) {
+    fetch(CatURL).then(response => response.json()).then(data => {
+        document.getElementById("CatDes").innerHTML = `Verás aquí todos los productos de la categoría <b>${data.catName}</b>`
+        categoriesArray = data.products;
+        showCategoriesList(categoriesArray);
+        IDS(categoriesArray);
+    });
+});
